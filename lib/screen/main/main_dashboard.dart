@@ -45,7 +45,7 @@ class _MainDashboardState extends State<MainDashboard> {
               Icons.trip_origin,
               color: _currentIndex == 1 ? mainColor : Colors.grey,
             ),
-            label: 'Orders',
+            label: 'Reports',
             backgroundColor: mainColor,
           ),
           BottomNavigationBarItem(
