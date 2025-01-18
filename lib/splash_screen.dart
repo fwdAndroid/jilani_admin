@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void _checkLoginStatus() async {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (builder) => const LoginScreen()),
+      MaterialPageRoute(builder: (builder) => const LoginPage()),
     );
   }
 

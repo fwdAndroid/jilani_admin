@@ -13,19 +13,19 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool passwordVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    passwordVisible = true;
+  }
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    bool passwordVisible = false;
-
-    @override
-    void initState() {
-      super.initState();
-      passwordVisible = true;
-    }
-
-    // Toggles the password show status
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passController = TextEditingController();
     return Scaffold(
       backgroundColor: colorWhite,
       body: SingleChildScrollView(
@@ -51,14 +51,17 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.only(left: 8, top: 15),
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: const BorderRadius.all(Radius.circular(12)),
-                      borderSide: BorderSide(
-                        color: mainColor,
-                      )),
+                    borderRadius: const BorderRadius.all(Radius.circular(12)),
+                    borderSide: BorderSide(
+                      color: mainColor,
+                    ),
+                  ),
                   focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: mainColor)),
+                    borderSide: BorderSide(color: mainColor),
+                  ),
                   border: OutlineInputBorder(
-                      borderSide: BorderSide(color: mainColor)),
+                    borderSide: BorderSide(color: mainColor),
+                  ),
                   fillColor: textColor,
                   suffixIcon: IconButton(
                     icon: const Icon(
@@ -69,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
+                    return 'Please enter your email';
                   }
                   return null;
                 },
@@ -89,14 +92,17 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.only(left: 8, top: 15),
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: const BorderRadius.all(Radius.circular(12)),
-                      borderSide: BorderSide(
-                        color: mainColor,
-                      )),
+                    borderRadius: const BorderRadius.all(Radius.circular(12)),
+                    borderSide: BorderSide(
+                      color: mainColor,
+                    ),
+                  ),
                   focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: mainColor)),
+                    borderSide: BorderSide(color: mainColor),
+                  ),
                   border: OutlineInputBorder(
-                      borderSide: BorderSide(color: mainColor)),
+                    borderSide: BorderSide(color: mainColor),
+                  ),
                   fillColor: textColor,
                   suffixIcon: IconButton(
                     icon: Icon(
@@ -120,44 +126,37 @@ class _LoginPageState extends State<LoginPage> {
               SaveButton(
                 title: "Log in",
                 onTap: () async {
-                  try {
-                    // Authenticate the user
-                    UserCredential userCredential =
-                        await FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: emailController.text,
-                      password: passController.text,
-                    );
+                  String email = emailController.text.trim();
+                  String password = passController.text.trim();
 
-                    // Get the authenticated user's email
-                    String email = userCredential.user?.email ?? '';
-
-                    // Check if this email exists in the Firestore 'admin' collection
-                    DocumentSnapshot adminSnapshot = await FirebaseFirestore
-                        .instance
-                        .collection('admin')
-                        .doc(email)
-                        .get();
-
-                    if (adminSnapshot.exists) {
-                      // Email exists in the 'admin' collection
+                  if (email == 'admin@gmail.com' && password == '123456') {
+                    try {
+                      await FirebaseAuth.instance.signInWithEmailAndPassword(
+                        email: email,
+                        password: password,
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Successfully logged in!'),
+                        ),
+                      );
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (builder) => MainDashboard()),
+                          builder: (builder) => MainDashboard(),
+                        ),
                       );
-                    } else {
-                      // Email not found in 'admin' collection
+                    } catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Access denied. Admin only.'),
+                        SnackBar(
+                          content: Text('Login failed: ${e.toString()}'),
                         ),
                       );
                     }
-                  } catch (e) {
-                    // Handle errors (e.g., wrong password, user not found)
+                  } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(e.toString()),
+                      const SnackBar(
+                        content: Text('Invalid email or password'),
                       ),
                     );
                   }
