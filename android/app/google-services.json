@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "563542385957",
+    "project_id": "osarmayalsia",
+    "storage_bucket": "osarmayalsia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:563542385957:android:f6d7903e6cd332217f26cc",
+        "android_client_info": {
+          "package_name": "com.example.jilani_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "563542385957-56k6kk916tpn2mkrnp200ng3c1fdca6m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5GHMhawsVYY3QAbV-PU5HtN1i5M_WW48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "563542385957-56k6kk916tpn2mkrnp200ng3c1fdca6m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "563542385957-967k3v460vlg3hlc1pl421152jp32ugh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.muslimMariage"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:563542385957:android:8770efb9f8af6f1f7f26cc",
+        "android_client_info": {
+          "package_name": "com.muslim_mariage.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "563542385957-bjn4stgn0j7ofutsiinp43fdk5l9kkjr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.muslim_mariage.app",
+            "certificate_hash": "ae4faa1295bb23700b939d4ae40c85c1b03f3177"
+          }
+        },
+        {
+          "client_id": "563542385957-m48hqnog46n9b27if4h4m3injhe4nejc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.muslim_mariage.app",
+            "certificate_hash": "9714786acd35b75b35023b850b1aab22ed716d09"
+          }
+        },
+        {
+          "client_id": "563542385957-56k6kk916tpn2mkrnp200ng3c1fdca6m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5GHMhawsVYY3QAbV-PU5HtN1i5M_WW48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "563542385957-56k6kk916tpn2mkrnp200ng3c1fdca6m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "563542385957-967k3v460vlg3hlc1pl421152jp32ugh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.muslimMariage"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
