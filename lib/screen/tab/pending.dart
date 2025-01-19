@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:jilani_admin/screen/detail/profile_detail.dart';
 import 'package:jilani_admin/utils/color.dart';
 
 class Pending extends StatefulWidget {
@@ -53,34 +54,37 @@ class _PendingState extends State<Pending> {
                   return Card(
                     child: ListTile(
                       trailing: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (builder) => ProfileDetail(
+                                    fatherName:
+                                        data['fatherName'] ?? "Not Available",
+                                    motherName:
+                                        data['motherName'] ?? "Not Available",
+                                    status: data['status'],
+                                    image: data['image'] ??
+                                        Image.asset("assets/logo.png"),
+                                    fullName: data['fullName'],
+                                    uid: data['uid'],
+                                    dob: data['dob'] ?? "Not Available",
+                                    gender: data['gender'],
+                                    sect: data['sect'] ?? "Not Available",
+                                    cast: data['cast'] ?? "Not Available",
+                                    contactNumber: data['contactNumber'] ??
+                                        "Not Available",
+                                    qualification: data['qualification'] ??
+                                        "Not Available",
+                                    aboutYourself: data['aboutYourself'] ??
+                                        "Not Available"),
+                              ),
+                            );
+                          },
                           child: Text(
                             "View Details",
                             style: TextStyle(color: mainColor),
                           )),
-                      onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (builder) => ProfileDetail(
-                        //         friendPhoto: data['image'] ??
-                        //             Image.asset("assets/logo.png"),
-                        //         friendName: data['fullName'],
-                        //         friendId: data['uid'],
-                        //         friendDOB: data['dob'] ?? "Not Available",
-                        //         gender: data['gender'],
-                        //         sect: data['sect'] ?? "Not Available",
-                        //         cast: data['cast'] ?? "Not Available",
-                        //         friendPhone: data['contactNumber'] ??
-                        //             "Not Available",
-                        //         friendQualification:
-                        //             data['qualification'] ??
-                        //                 "Not Available",
-                        //         yourSelf: data['aboutYourself'] ??
-                        //             "Not Available"),
-                        //   ),
-                        // );
-                      },
                       leading: CircleAvatar(
                         backgroundImage: NetworkImage(
                             data['image'] ?? Image.asset("assets/logo.png")),
