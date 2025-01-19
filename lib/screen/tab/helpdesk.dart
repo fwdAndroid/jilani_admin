@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:jilani_admin/screen/detail/help_detail.dart';
 import 'package:jilani_admin/utils/color.dart';
 
 class HelpDesk extends StatefulWidget {
@@ -16,6 +17,7 @@ class _HelpDeskState extends State<HelpDesk> {
         body: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection("collectionPath")
+                .where("status", isEqualTo: "pending")
                 .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -52,34 +54,23 @@ class _HelpDeskState extends State<HelpDesk> {
                   return Card(
                     child: ListTile(
                       trailing: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (builder) => HelpDetail(
+                                    name: data['name'],
+                                    message: data['message'],
+                                    email: data['email'],
+                                    uuid: data['uuid'],
+                                    status: data['status'],
+                                  ),
+                                ));
+                          },
                           child: Text(
                             "View Details",
                             style: TextStyle(color: mainColor),
                           )),
-                      onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (builder) => ProfileDetail(
-                        //         friendPhoto: data['image'] ??
-                        //             Image.asset("assets/logo.png"),
-                        //         friendName: data['fullName'],
-                        //         friendId: data['uid'],
-                        //         friendDOB: data['dob'] ?? "Not Available",
-                        //         gender: data['gender'],
-                        //         sect: data['sect'] ?? "Not Available",
-                        //         cast: data['cast'] ?? "Not Available",
-                        //         friendPhone: data['contactNumber'] ??
-                        //             "Not Available",
-                        //         friendQualification:
-                        //             data['qualification'] ??
-                        //                 "Not Available",
-                        //         yourSelf: data['aboutYourself'] ??
-                        //             "Not Available"),
-                        //   ),
-                        // );
-                      },
                       title: Text(data['name'] ?? 'No Name'),
                       subtitle: Text(data['email'] ?? 'No Phone'),
                     ),
