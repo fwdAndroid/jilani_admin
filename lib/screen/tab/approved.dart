@@ -59,6 +59,7 @@ class _ApprovedState extends State<Approved> {
                               context,
                               MaterialPageRoute(
                                 builder: (builder) => ProfileDetail(
+                                    idCard: data['idCard'] ?? "assets/logo.png",
                                     fatherName:
                                         data['fatherName'] ?? "Not Available",
                                     motherName:
@@ -85,10 +86,13 @@ class _ApprovedState extends State<Approved> {
                             "View Details",
                             style: TextStyle(color: mainColor),
                           )),
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            data['image'] ?? Image.asset("assets/logo.png")),
-                      ),
+                      leading: data['image'] != null && data['image'].isNotEmpty
+                          ? CircleAvatar(
+                              backgroundImage: NetworkImage(data['image']),
+                            )
+                          : CircleAvatar(
+                              backgroundImage: AssetImage("assets/logo.png"),
+                            ),
                       title: Text(data['fullName'] ?? 'No Name'),
                       subtitle: Text(data['contactNumber'] ?? 'No Phone'),
                     ),

@@ -17,6 +17,8 @@ class ProfileDetail extends StatefulWidget {
   String dob;
   String gender;
   String image;
+  String idCard;
+
   ProfileDetail({
     super.key,
     required this.aboutYourself,
@@ -32,6 +34,7 @@ class ProfileDetail extends StatefulWidget {
     required this.sect,
     required this.status,
     required this.uid,
+    required this.idCard,
   });
 
   @override
@@ -42,164 +45,54 @@ class _ProfileDetailState extends State<ProfileDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
-        body: SingleChildScrollView(
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      appBar: AppBar(),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
             Center(
-              child: CircleAvatar(
-                radius: 60,
-                backgroundImage: NetworkImage(widget.image),
+              child: GestureDetector(
+                onTap: () {
+                  _showImageDialog(widget.image); // Enlarge profile picture
+                },
+                child: CircleAvatar(
+                  radius: 60,
+                  backgroundImage: NetworkImage(widget.image),
+                ),
               ),
             ),
+            _buildInfoSection("Name of the User", widget.fullName),
+            _buildInfoSection("Phone", widget.contactNumber),
+            _buildInfoSection("Father Name", widget.fatherName),
+            _buildInfoSection("Mother Name", widget.motherName),
+            _buildInfoSection("Cast", widget.cast),
+            _buildInfoSection("Date of Birth", widget.dob),
+            _buildInfoSection("Sect", widget.sect),
+            _buildInfoSection("User Profile Description", widget.aboutYourself),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Name OF THE USER",
+                    "ID Card",
                     style: TextStyle(
-                        color: black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
+                      color: black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
                   ),
-                  Text(
-                    widget.fullName,
-                    style: TextStyle(color: black, fontSize: 16),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Phone",
-                    style: TextStyle(
-                        color: black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
-                  Text(
-                    widget.contactNumber,
-                    style: TextStyle(color: black, fontSize: 16),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Father Name",
-                    style: TextStyle(
-                        color: black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
-                  Text(
-                    widget.fatherName,
-                    style: TextStyle(color: black, fontSize: 16),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Mother Name",
-                    style: TextStyle(
-                        color: black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
-                  Text(
-                    widget.motherName,
-                    style: TextStyle(color: black, fontSize: 16),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Cast",
-                    style: TextStyle(
-                        color: black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
-                  Text(
-                    widget.cast,
-                    style: TextStyle(color: black, fontSize: 16),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Date of Birth",
-                    style: TextStyle(
-                        color: black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
-                  Text(
-                    widget.dob,
-                    style: TextStyle(color: black, fontSize: 16),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Sect",
-                    style: TextStyle(
-                        color: black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
-                  Text(
-                    widget.sect,
-                    style: TextStyle(color: black, fontSize: 16),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "User Profile Description",
-                    style: TextStyle(
-                        color: black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
-                  Text(
-                    widget.aboutYourself,
-                    style: TextStyle(color: black, fontSize: 16),
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        _showImageDialog(widget.idCard); // Enlarge ID card
+                      },
+                      child: CircleAvatar(
+                        radius: 60,
+                        backgroundColor: mainColor,
+                        backgroundImage: NetworkImage(widget.idCard),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -247,10 +140,75 @@ class _ProfileDetailState extends State<ProfileDetail> {
                 ],
               ),
             ),
-          ]),
-        ));
+          ],
+        ),
+      ),
+    );
   }
 
+  // Method to build information sections
+  Widget _buildInfoSection(String title, String value) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              color: black,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+          Text(
+            value,
+            style: TextStyle(color: black, fontSize: 16),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Method to show the enlarged image
+  void _showImageDialog(String imageUrl) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pop(context); // Close the dialog when tapped
+            },
+            child: Center(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.broken_image, size: 100, color: Colors.grey),
+                        Text(
+                          "Unable to load image",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  // Firebase update function for accepting the status
   void _acceptStatus() async {
     try {
       await FirebaseFirestore.instance
